@@ -1,0 +1,48 @@
+{% extends 'base.html'%} {% block content %}
+<!-- Table for displaying transaction data -->
+
+<div class="container-fluid">
+  <table id="transactionTable" class="table table-striped">
+    <thead>
+      <tr>
+        <th>Transaction ID</th>
+        <th>Date</th>
+        <th>Category</th>
+        <th>Customer Id</th>
+        <th>Customer Name</th>
+        <th>Product Id</th>
+        <th>Product Name</th>
+        <th>Merchant Id</th>
+        <th>Merchant Name</th>
+        <th>Commission</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for transaction in transactions %}
+      <tr>
+        <td>{{ transaction.transaction_id }}</td>
+        <td>{{ transaction.date }}</td>
+        <td>{{ transaction.product.category}}</td>
+        <td>{{ transaction.customer.customer_id }}</td>
+        <td>{{ transaction.customer.customer_name }}</td>
+        <td>{{ transaction.product.product_id}}</td>
+        <td>{{ transaction.product.product_name}}</td>
+        <td>{{ transaction.merchant.merchant_id }}</td>
+        <td>{{ transaction.merchant.merchant_name }}</td>
+        <td>{{ transaction.commission.commission_percentage }}%</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<script>
+  $(document).ready(function () {
+    $("#transaction-table").DataTable({
+      processing: true,
+      serverSide: true,
+      ajax: "{% url 'transaction_list' %}",
+    });
+  });
+</script>
+{%endblock%}

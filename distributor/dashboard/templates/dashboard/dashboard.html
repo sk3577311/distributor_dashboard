@@ -1,0 +1,55 @@
+{% extends 'base.html'%} {% block content %}
+
+<div class="container">
+  <h2 class="p-3 text-primary">Distributor Dashboard</h2>
+  <form method="get">
+    <div class="form-row">
+      <div class="form-group col-md-3">
+        <label for="start_date">Start Date:</label>
+        <input
+          type="date"
+          class="form-control"
+          id="start_date"
+          name="start_date"
+          value="{{ start_date|date:'Y-m-d' }}"
+        />
+      </div>
+      <div class="form-group col-md-3">
+        <label for="end_date">End Date:</label>
+        <input
+          type="date"
+          class="form-control"
+          id="end_date"
+          name="end_date"
+          value="{{ end_date|date:'Y-m-d' }}"
+        />
+      </div>
+      <div class="form-group col-md-2">
+        <button type="submit" class="btn btn-primary" style="margin-top: 30px">
+          Filter
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h6>Daily earnings chart</h6>
+      <canvas id="dailyEarningsChart"></canvas>
+    </div>
+    <div class="col-md-6">
+      <h6>Weekly earnings chart</h6>
+      <canvas id="weeklyEarningsChart"></canvas>
+    </div>
+    <div class="mb-3">
+      <div class="col-md-6 border-1">
+        <h6>Category earnings chart</h6>
+        <canvas id="categoryEarningsChart"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

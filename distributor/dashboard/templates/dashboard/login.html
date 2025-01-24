@@ -1,0 +1,29 @@
+{% extends 'base.html'%} {% block content %} {% for mess in messages%}
+<div class="alert alert-primary alert-dismissible fade show" role="alert">
+  {{mess}}
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  ></button>
+</div>
+{% endfor %}
+<div
+  class="container d-flex justify-content-center align-items-center min-vh-100 max-height-100"
+>
+  <div class="row">
+    <div class="">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Distributor login</h5>
+          <form method="post">
+            {% csrf_token %} {{ form.as_p }}
+            <button type="submit" class="btn btn-secondary">Login</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

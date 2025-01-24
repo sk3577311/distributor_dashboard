@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    {% load bootstrap5 %} {% bootstrap_css %} {% bootstrap_javascript %}
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'dashboard' %}"
+          ><h4>Welcome {{user.username}}</h4></a
+        >
+        <button
+          class="navbar-toggler d-lg-none"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapsibleNavId"
+          aria-controls="collapsibleNavId"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavId">
+          <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="{% url 'transaction_list' %}"
+                aria-current="page"
+                >Transactions Lists
+            </li>
+    
+          </ul>
+
+          {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}">
+              <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">
+                Logout
+              </button>
+            </a>
+            {% else %}
+            <a href="{% url 'login' %}">
+              <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">
+                Login
+              </button>
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </nav>
+    {% block content %} {% endblock %}
+    <script>
+      // Function to create a chart
+      function createChart(chartId, chartType, labels, data, label) {
+        var ctx = document.getElementById(chartId).getContext("2d");
+        new Chart(ctx, {
+          type: chartType,
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: label,
+                data: data,
+                backgroundColor: [
+                  "rgba(255, 99, 132, 0.2)",
+                  "rgba(54, 162, 235, 0.2)",
+                  "rgba(255, 206, 86, 0.2)",
+                  "rgba(75, 192, 192, 0.2)",
+                  "rgba(153, 102, 255, 0.2)",
+                  "rgba(255, 159, 64, 0.2)",
+                ],
+                borderColor: [
+                  "rgba(255, 99, 132, 1)",
+                  "rgba(54, 162, 235, 1)",
+                  "rgba(255, 206, 86, 1)",
+                  "rgba(75, 192, 192, 1)",
+                  "rgba(153, 102, 255, 1)",
+                  "rgba(255, 159, 64, 1)",
+                ],
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
+            },
+          },
+        });
+      }
+
+      // Fetch data and create charts using AJAX
+      fetch("/daily_earnings_chart_data/")
+        .then((response) => response.json())
+        .then((data) => {
+          createChart(
+            "dailyEarningsChart",
+            "bar",
+            data.labels,
+            data.datasets[0].data,
+            "Daily Earnings"
+          );
+        });
+
+      fetch("/weekly_earnings_chart_data/")
+        .then((response) => response.json())
+        .then((data) => {
+          createChart(
+            "weeklyEarningsChart",
+            "line",
+            data.labels,
+            data.datasets[0].data,
+            "Weekly Earnings"
+          );
+        });
+
+      fetch("/category_earnings_chart_data/")
+        .then((response) => response.json())
+        .then((data) => {
+          createChart(
+            "categoryEarningsChart",
+            "pie",
+            data.labels,
+            data.datasets[0].data,
+            "Category Earnings"
+          );
+        });
+    </script>
+  </body>
+</html>
