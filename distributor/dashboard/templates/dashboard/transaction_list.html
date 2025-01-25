@@ -2,7 +2,14 @@
 <!-- Table for displaying transaction data -->
 
 <div class="container-fluid">
-  <table id="transactionTable" class="table table-striped">
+  <input
+    class="form-control"
+    style="width: 500px; margin: 10px"
+    id="myInput"
+    type="text"
+    placeholder="Search you products..."
+  />
+  <table id="mytable" class="table table-striped table-hover">
     <thead>
       <tr>
         <th>Transaction ID</th>
@@ -35,13 +42,13 @@
     </tbody>
   </table>
 </div>
-
 <script>
   $(document).ready(function () {
-    $("#transaction-table").DataTable({
-      processing: true,
-      serverSide: true,
-      ajax: "{% url 'transaction_list' %}",
+    $("#myInput").on("keyup", function () {
+      var value = $(this).val().toLowerCase();
+      $("#mytable tr").filter(function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+      });
     });
   });
 </script>
