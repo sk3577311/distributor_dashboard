@@ -28,18 +28,22 @@ This is a Django web application that allows distributors to view their earnings
    ```bash
    git clone ["this repo's url "]
 2. **Activating the enviroment **
+   ```bash
    python3 -m venv .venv
    source .venv/bin/activate
-4. **Set up the database:**
+3. **Set up the database:**
+   ```bash
     python manage.py makemigrations
     python manage.py migrate
-5. ** Load data from command **
+4. ** Load data from command **
+   ```bash
    python manage.py importdata ./data/transaction_data.csv
-6. ** Run the server **
+5. ** Run the server **
+   ```bash
    python manage.py runserver
 
 
-   For login use distributor details such as Distributor_name for username and Distributor_id for password which will be retrieved from MySql.
+For login use distributor details such as Distributor_name for username and Distributor_id for password which will be retrieved from MySql.
    
 
-   This README provides a comprehensive overview of the project, including features, installation instructions, data format, usage guidelines.
+This README provides a comprehensive overview of the project, including features, installation instructions, data format, usage guidelines.
