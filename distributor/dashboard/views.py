@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.decorators import login_required
 from .models import Transaction
@@ -29,10 +29,11 @@ def login_view(request):
             user = authenticate(request, username=distributor_id, password=distributor_name)
             if user is not None:
                 login(request, user)
-                return redirect('dashboard/')  # Redirect to your dashboard
+                return HttpResponseRedirect('dashboard/')  # Redirect to your dashboard
             else:
                 # Show an error message
                 form.add_error(None, "Invalid distributor ID or name.")
+                return HttpResponseRedirect('login')
     else:
         form = DistributorLoginForm()
     return render(request, 'dashboard/login.html', {'form': form})
