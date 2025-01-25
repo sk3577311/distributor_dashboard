@@ -29,11 +29,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'dashboard',
     'rest_framework',
-    'corsheaders',
     'django_extensions',
     'bootstrap5',
-    'ajax_datatable',
-    'django_dyn_dt'
 ]
 
 MIDDLEWARE = [
@@ -131,3 +128,6 @@ AUTHENTICATION_BACKENDS = [
     'dashboard.backends.DistributorBackend',  # Replace with your app and backend path
     'django.contrib.auth.backends.ModelBackend',  # Keep the default backend for other models
 ]
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+SESSION_COOKIE_AGE = 5 * 60
