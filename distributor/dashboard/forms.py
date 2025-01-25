@@ -3,9 +3,22 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate
 
 class DistributorLoginForm(AuthenticationForm):
-    username = forms.CharField(label="Distributor ID")
-    password = forms.CharField(label="Distributor Name")
-
+    username = forms.CharField(label="Distributor Name",widget=forms.TextInput(
+        attrs={
+            'class': 'form-control',
+            'placeholder': 'Distributor Name',
+            'autocomplete':'off',
+            
+    }
+    ))
+    password = forms.CharField(widget=forms.PasswordInput(
+        attrs={
+            'class': 'form-control',
+            'placeholder': 'Your Distributor ID is your password',
+            'autocomplete':'off',
+    }
+    ))
+    
     def clean(self):
         cleaned_data = super().clean()
         username = cleaned_data.get('username')
