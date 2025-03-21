@@ -1,5 +1,4 @@
 import os , inspect
-import django_dyn_dt
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
